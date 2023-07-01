@@ -1,38 +1,54 @@
-// Assignment code here
+var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+var numericValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+var specialChar = [" ", "!", '"', "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", " \ ", "]", "^", "_", "`", "{", "|", "}", "~"]
+var candidates = []
+var password = ''
+var passwordText = document.querySelector("#password");
 
-
-// Get references to the #generate element
-// Points to creating button using ID generate in HTML
 var generateBtn = document.querySelector("#generate");
-function generatePassword(){
-  console.log()
-}
 
-generatePassword()
-// Write password to the #password input, creates function password
 function writePassword() {
-  //calling variable called password
-  var password = generatePassword();
-  //creates variable pointing to password in HTML
-  var passwordText = document.querySelector("#password");
-  // sets value of password text to password
+  passwordText.value = ''
+
+  let lengthInt = getLength()
+  if (lengthInt < 8 || lengthInt > 128) {
+    alert('Please enter a length between 8 and 128')
+    lengthInt = getLength()
+  }
+
+  let upperCaseAnswer = confirm("Would you like upper cases?");
+  if (upperCaseAnswer) {
+    candidates = candidates.concat(upperCase)
+  }
+  let lowerCaseAnswer = confirm("Would you like lower cases?");
+  if (lowerCaseAnswer) {
+    candidates = candidates.concat(lowerCase)
+  }
+  let numericalAnswer = confirm("Would you like numerical values?");
+  if (numericalAnswer) {
+    candidates = candidates.concat(numericValues)
+  }
+  let specialCharAnswer = confirm("Would you like special characters?");
+  if (specialCharAnswer) {
+    candidates = candidates.concat(specialChar)
+  }
+
+  for (let i = 0; i < lengthInt; i++) {
+    var index = parseInt(Math.random() * candidates.length)
+    password += candidates[index]
+  }
+
   passwordText.value = password;
 
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+function getLength() {
+  let length = prompt("Enter the length you would like your password to be between 8 and 128 characters");
+  let lengthInt = parseInt(length)
+  return lengthInt
+}
 
-//PHASE 1
-//What we need to do
-//Characters (8-128)
-//Prompt user for upper/lower case (yes/no) and use confirm
-//Numerical values (yes/no) and confirm
-//Special characters (yes/no) and confirm
-
-//PHASE 2
-//What values do we need to track?
-//variables for characters, upper/lower, numerical, special characters using an array
-//randomize the array and pull from available characters
-//create a for loop that runs length number of times based on what user types in
-//generate a single random character and append to password
+generateBtn.addEventListener("click",
+  writePassword
+);
