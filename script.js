@@ -13,11 +13,11 @@ function writePassword() {
 
   let lengthInt = getLength()
   if (lengthInt < 8 || lengthInt > 128) {
-    alert('Please enter a length between 8 and 128')
+    alert('Please enter a numerical value between 8 and 128')
     lengthInt = getLength()
   }
 
-  let upperCaseAnswer = confirm("Would you like upper cases?");
+  let upperCaseAnswer = confirm('Would you like upper cases?\nPress "Ok" for yes and "Cancel" for no');
   if (upperCaseAnswer) {
     candidates = candidates.concat(upperCase)
   }
@@ -49,6 +49,4 @@ function getLength() {
   return lengthInt
 }
 
-generateBtn.addEventListener("click",
-  writePassword
-);
+generateBtn.addEventListener("click", writePassword);
